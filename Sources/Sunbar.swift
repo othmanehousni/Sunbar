@@ -24,6 +24,20 @@ private struct BoostMenu: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 10) {
+                Image(nsImage: NSApp.applicationIconImage)
+                    .resizable()
+                    .frame(width: 36, height: 36)
+                    .accessibilityHidden(true)
+                Text("Sunbar").font(.title3.weight(.semibold))
+                Spacer()
+                Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Divider()
+
             Toggle("XDR Brightness", isOn: $boost.enabled)
                 .toggleStyle(.switch)
                 .font(.headline)
@@ -50,6 +64,11 @@ private struct BoostMenu: View {
             }
 
             Divider()
+
+            Button("About Sunbar") {
+                NSApp.orderFrontStandardAboutPanel()
+                NSApp.activate()
+            }
 
             Button(startsAtLogin ? "Stop Opening at Login" : "Open at Login") {
                 setLoginItem(!startsAtLogin)

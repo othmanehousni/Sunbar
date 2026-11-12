@@ -26,7 +26,14 @@ if [[ "${1:-}" == --test ]]; then
 fi
 
 app="build/Sunbar.app"
-mkdir -p "$app/Contents/MacOS"
+iconset=".build/Sunbar.iconset"
+mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources" "$iconset"
+for size in 16 32 128 256 512; do
+    sips -z "$size" "$size" assets/sunbar.png --out "$iconset/icon_${size}x${size}.png" >/dev/null
+    retina_size=$((size * 2))
+    sips -z "$retina_size" "$retina_size" assets/sunbar.png --out "$iconset/icon_${size}x${size}@2x.png" >/dev/null
+done
+iconutil -c icns "$iconset" -o "$app/Contents/Resources/AppIcon.icns"
 cp Info.plist "$app/Contents/Info.plist"
 xcrun swiftc "${flags[@]}" -O -o "$app/Contents/MacOS/Sunbar" Sources/*.swift
 codesign --force --sign - "$app"
