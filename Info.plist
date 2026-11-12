@@ -17,9 +17,9 @@
     <key>CFBundleIconFile</key>
     <string>AppIcon.icns</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.6.1</string>
+    <string>0.6.2</string>
     <key>CFBundleVersion</key>
-    <string>10</string>
+    <string>11</string>
     <key>NSHumanReadableCopyright</key>
     <string>Copyright © 2026 Othmane HOUSNI</string>
     <key>LSMinimumSystemVersion</key>

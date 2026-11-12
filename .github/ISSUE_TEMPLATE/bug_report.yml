@@ -13,7 +13,7 @@ body:
     id: setup
     attributes:
       label: Mac model, macOS version, and Sunbar version
-      placeholder: MacBook Pro 14-inch M1 Pro, macOS 27.2, Sunbar 0.6.1
+      placeholder: MacBook Pro 14-inch M1 Pro, macOS 27.2, Sunbar 0.6.2
     validations:
       required: true
   - type: input

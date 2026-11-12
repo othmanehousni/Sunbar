@@ -2,8 +2,8 @@ Sunbar brings extra XDR brightness to the built-in Liquid Retina XDR display on 
 
 - Native HDR keeps brightness across apps, Mission Control, full-screen windows, and desktop swipes.
 - Adjust the boost with an aligned slider and visible percentage, and optionally start Sunbar at login.
-- The native compositor is the only brightness method. Experimental overlays, direct backlight control, and diagnostic collection have been removed.
-- Includes the Sunbar icon, source build scripts.
+- Uses the native compositor for smooth brightness across the desktop.
+- Includes the Sunbar icon, source build scripts, and optional launch at login.
 - Hardened runtime is enabled without exception entitlements. The app makes no network requests and requires no Screen Recording or Accessibility access.
 
 This beta is ad-hoc signed and has not been notarized. After the first launch attempt, macOS may require approval under System Settings → Privacy & Security → Open Anyway. Source builds are supported through the README instructions.
