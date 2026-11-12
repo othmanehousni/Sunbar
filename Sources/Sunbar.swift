@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright (c) 2026 Othmane HOUSNI
+
 import ServiceManagement
 import SwiftUI
 
@@ -52,15 +55,17 @@ private struct BoostMenu: View {
             .accessibilityValue(boost.strength.formatted(.percent.precision(.fractionLength(0))))
             .disabled(!boost.enabled)
 
-            Picker("Boost method", selection: $boost.method) {
-                ForEach(BoostMethod.allCases) { method in
-                    Text(method.rawValue).tag(method)
+            DisclosureGroup("Experimental methods") {
+                Picker("Boost method", selection: $boost.method) {
+                    ForEach(BoostMethod.allCases) { method in
+                        Text(method.rawValue).tag(method)
+                    }
                 }
-            }
-            if boost.method == .direct {
-                Text("Uses the stock SDR preset while the boost is on.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                if boost.method == .direct {
+                    Text("Uses the stock SDR preset while the boost is on.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
 
             Divider()
@@ -68,6 +73,9 @@ private struct BoostMenu: View {
             Button("About Sunbar") {
                 NSApp.orderFrontStandardAboutPanel()
                 NSApp.activate()
+            }
+            Button("Source on GitHub") {
+                NSWorkspace.shared.open(URL(string: "https://github.com/othmanehousni/Sunbar")!)
             }
 
             Button(startsAtLogin ? "Stop Opening at Login" : "Open at Login") {

@@ -1,0 +1,29 @@
+name: Bug report
+description: Report a brightness, display, or app issue.
+labels: [bug]
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Include steps to reproduce and what you expected.
+    validations:
+      required: true
+  - type: input
+    id: setup
+    attributes:
+      label: Mac model, macOS version, and Sunbar version
+      placeholder: MacBook Pro 14-inch M1 Pro, macOS 27.2, Sunbar 0.6.0
+    validations:
+      required: true
+  - type: input
+    id: preset
+    attributes:
+      label: Display preset and boost method
+      placeholder: Apple XDR Display, Native HDR
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: Use Copy Diagnostics in the Sunbar menu.
+      render: text

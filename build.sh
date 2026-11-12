@@ -2,6 +2,11 @@
 set -euo pipefail
 cd -- "$(dirname -- "$0")"
 
+case "${1:-}" in
+    ""|--test) ;;
+    *) echo "Usage: ./build.sh [--test]" >&2; exit 2 ;;
+esac
+
 flags=(-swift-version 6 -target arm64-apple-macos14.0 -sdk "$(xcrun --sdk macosx --show-sdk-path)")
 mkdir -p .build
 
@@ -35,6 +40,12 @@ for size in 16 32 128 256 512; do
 done
 iconutil -c icns "$iconset" -o "$app/Contents/Resources/AppIcon.icns"
 cp Info.plist "$app/Contents/Info.plist"
+cp LICENSE ACKNOWLEDGEMENTS.md "$app/Contents/Resources/"
 xcrun swiftc "${flags[@]}" -O -o "$app/Contents/MacOS/Sunbar" Sources/*.swift
-codesign --force --sign - "$app"
+signing_identity="${SUNBAR_SIGNING_IDENTITY:--}"
+if [[ "$signing_identity" == - ]]; then
+    codesign --force --sign - "$app"
+else
+    codesign --force --options runtime --timestamp --sign "$signing_identity" "$app"
+fi
 echo "$PWD/$app"
