@@ -13,17 +13,16 @@ body:
     id: setup
     attributes:
       label: Mac model, macOS version, and Sunbar version
-      placeholder: MacBook Pro 14-inch M1 Pro, macOS 27.2, Sunbar 0.6.0
+      placeholder: MacBook Pro 14-inch M1 Pro, macOS 27.2, Sunbar 0.6.1
     validations:
       required: true
   - type: input
     id: preset
     attributes:
-      label: Display preset and boost method
-      placeholder: Apple XDR Display, Native HDR
+      label: Display preset
+      placeholder: Apple XDR Display
   - type: textarea
-    id: diagnostics
+    id: context
     attributes:
-      label: Diagnostics
-      description: Use Copy Diagnostics in the Sunbar menu.
-      render: text
+      label: Where does it happen?
+      description: Describe any connection to Mission Control, desktop swipes, full-screen apps, sleep, or app switching. Screenshots are welcome. Avoid personal information.

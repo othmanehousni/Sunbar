@@ -24,6 +24,10 @@ struct BoostRamp {
     }
 
     mutating func update(headroom: Double, strength: Double) -> Double {
+        guard strength.isFinite else {
+            factor = 1
+            return factor
+        }
         guard headroom.isFinite, headroom > Self.headroomThreshold else {
             // Keep the last multiplier through short compositor handoffs.
             missingFrames = min(missingFrames + 1, 5)

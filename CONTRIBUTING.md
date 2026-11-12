@@ -13,18 +13,11 @@ Test changes on a built-in Liquid Retina XDR display using the Apple XDR Display
 
 CI checks the build and pure logic on macOS runners. HDR behavior needs a physical compatible display. Include the hardware and macOS version you tested in a pull request.
 
-Preserve the calibrated sRGB multiplier and selector checks around private interfaces. Keep Native HDR as the default method.
-
-## Experimental methods
-
-The menu retains these development modes for diagnosis.
-
-- **Direct Backlight** tries an IOKit backlight request under Apple's stock SDR preset. It stops and restores settings when the active preset caps the panel at normal SDR brightness. Its recovery journal is restored on the next launch after an interrupted run.
-- **System Layer** and **All Spaces** use Metal multiply overlays. Their boost can disappear during compositor transitions.
+Preserve the calibrated sRGB multiplier, selector checks around private interfaces, and pause behavior for sleep, inactive sessions, and system authorization UI. The native compositor is the only brightness backend. Avoid display preset changes, hardware backlight writes, and screen capture.
 
 ## Bug reports
 
-Include your Mac model, macOS version, Sunbar version, display preset, selected method, steps to reproduce, and the output of Copy Diagnostics.
+Include your Mac model, macOS version, Sunbar version, display preset, and steps to reproduce. Describe whether the problem occurs during normal use, Mission Control, full-screen apps, or desktop swipes. Report security vulnerabilities privately using the security policy.
 
 ## Assets and releases
 

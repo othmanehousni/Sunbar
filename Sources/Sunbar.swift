@@ -49,24 +49,24 @@ private struct BoostMenu: View {
                 .font(.callout)
                 .foregroundStyle(.secondary)
 
-            Slider(value: $boost.strength, in: 0.05...1, step: 0.01) {
-                Text("Boost")
-            }
-            .accessibilityValue(boost.strength.formatted(.percent.precision(.fractionLength(0))))
-            .disabled(!boost.enabled)
-
-            DisclosureGroup("Experimental methods") {
-                Picker("Boost method", selection: $boost.method) {
-                    ForEach(BoostMethod.allCases) { method in
-                        Text(method.rawValue).tag(method)
-                    }
-                }
-                if boost.method == .direct {
-                    Text("Uses the stock SDR preset while the boost is on.")
-                        .font(.caption)
+            VStack(spacing: 6) {
+                HStack {
+                    Text("Boost")
+                    Spacer()
+                    Text(boost.strength.formatted(.percent.precision(.fractionLength(0))))
+                        .monospacedDigit()
                         .foregroundStyle(.secondary)
                 }
+                Slider(value: $boost.strength, in: 0.05...1) {
+                    Text("Boost")
+                }
+                .labelsHidden()
+                .controlSize(.regular)
+                .tint(.orange)
+                .frame(height: 24)
+                .accessibilityValue(boost.strength.formatted(.percent.precision(.fractionLength(0))))
             }
+            .disabled(!boost.enabled)
 
             Divider()
 
@@ -88,15 +88,8 @@ private struct BoostMenu: View {
                 Text(loginError).font(.callout).foregroundStyle(.secondary)
             }
 
-            HStack {
-                Button("Copy Diagnostics") {
-                    NSPasteboard.general.clearContents()
-                    NSPasteboard.general.setString(boost.diagnostics, forType: .string)
-                }
-                Spacer()
-                Button("Quit") { NSApp.terminate(nil) }
-                    .keyboardShortcut("q")
-            }
+            Button("Quit") { NSApp.terminate(nil) }
+                .keyboardShortcut("q")
         }
         .padding(16)
         .frame(width: 310)

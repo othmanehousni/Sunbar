@@ -8,7 +8,7 @@ Update the version and increasing build number in `Info.plist`, then run the rel
 ./release.sh
 ```
 
-For version 0.6.0 it creates `build/Sunbar-0.6.0-macos-arm64.zip` and `build/SHA256SUMS`. The ZIP contains `Sunbar.app`, its icon, license, and acknowledgements. The default signature is ad hoc. GitHub Actions builds the same package on macOS 15 and macOS 26.
+For version 0.6.1 it creates `build/Sunbar-0.6.1-macos-arm64.zip` and `build/SHA256SUMS`. The ZIP contains `Sunbar.app`, its icon, license, and acknowledgements. The default signature is ad hoc with the hardened runtime enabled. GitHub Actions builds the same package on macOS 15 and macOS 26.
 
 Verify the package contents, then test the extracted app on an XDR Mac. Check the release version, icon, startup, boost slider, Mission Control, desktop swipes, full-screen apps, app switching, login item, sleep/wake, and quit behavior.
 
@@ -43,11 +43,11 @@ Apple documents the signing and notarization requirements in its distribution gu
 Confirm the Build workflow is green for the release commit. Create a version tag that matches `Info.plist`, then create a draft release with the ZIP and checksum. The commands below use the active GitHub account.
 
 ```sh
-git tag -a v0.6.0 -m 'Sunbar 0.6.0'
-git push origin v0.6.0
-gh release create v0.6.0 \
-  build/Sunbar-0.6.0-macos-arm64.zip build/SHA256SUMS \
-  --draft --prerelease --title 'Sunbar 0.6.0' \
+git tag -a v0.6.1 -m 'Sunbar 0.6.1'
+git push origin v0.6.1
+gh release create v0.6.1 \
+  build/Sunbar-0.6.1-macos-arm64.zip build/SHA256SUMS \
+  --draft --prerelease --title 'Sunbar 0.6.1' \
   --notes-file docs/RELEASE_NOTES.md
 ```
 

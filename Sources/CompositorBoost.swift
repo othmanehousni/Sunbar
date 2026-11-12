@@ -11,10 +11,9 @@ final class CompositorBoost {
     private let scale: CGFloat
     private let window: NSWindow
     private let space: PinnedSpace
-    private let trigger: XDROverlay
+    private let trigger: HDRTrigger
     private let filterType: NSObject.Type
     private var factor: Double?
-    private(set) var updates = 0
 
     init?(screen: NSScreen, display: CGDirectDisplayID) {
         let makeFilter = NSSelectorFromString("filterWithType:")
@@ -70,13 +69,13 @@ final class CompositorBoost {
             return nil
         }
         self.space = space
-        guard let trigger = XDROverlay(screen: screen, placement: .systemLayer, triggerOnly: true) else {
+        guard let trigger = HDRTrigger(screen: screen) else {
             space.close()
             window.close()
             return nil
         }
         self.trigger = trigger
-        refresh(on: screen, factor: 1)
+        refresh(factor: 1)
         window.orderFrontRegardless()
     }
 
@@ -84,7 +83,7 @@ final class CompositorBoost {
         self.display == display && frame == screen.frame && scale == screen.backingScaleFactor
     }
 
-    func refresh(on screen: NSScreen, factor: Double) {
+    func refresh(factor: Double) {
         if self.factor != factor {
             // Core Animation copies filter state when it is assigned to the layer.
             guard let filter = filterType.perform(NSSelectorFromString("filterWithType:"), with: "colorMatrix")?
@@ -107,9 +106,8 @@ final class CompositorBoost {
             window.contentView?.layer?.filters = [filter]
             CATransaction.commit()
             self.factor = factor
-            updates += 1
         }
-        trigger.refresh(on: screen, factor: 1)
+        trigger.refresh()
     }
 
     func close() {

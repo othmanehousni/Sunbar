@@ -55,13 +55,13 @@ Create a ZIP and SHA-256 checksum with the release script.
 
 A floating-point backdrop filter applies calibrated brightness gain inside WindowServer. A small HDR trigger keeps the display in EDR. Brightness follows the system's live compositor updates, including Mission Control and Space transitions.
 
-All brightness processing happens locally. **Copy Diagnostics** puts display and app status into your clipboard for troubleshooting. Sunbar pauses its overlay while system authorization UI is active.
+All brightness processing happens locally. Sunbar uses the native compositor without screen capture, accounts, analytics, or network requests. It pauses the boost during sleep, inactive sessions, and system authorization UI.
 
-**Native HDR** is the default method. The **Experimental methods** section retains comparison modes used during development. Those modes have gesture and preset limitations described in the contributor guide. [Contributor guide](CONTRIBUTING.md)
+The app uses one compositor filter and a one-pixel HDR trigger. It updates the filter only when the gain changes. Release builds enable the hardened runtime without exception entitlements. [Security](SECURITY.md)
 
 ## Contributing
 
-Bug reports and focused pull requests are welcome. Include your Mac model, macOS version, display preset, and diagnostics when reporting display issues. [Contributing](CONTRIBUTING.md)
+Bug reports and focused pull requests are welcome. Include your Mac model, macOS version, display preset, and steps to reproduce when reporting display issues. [Contributing](CONTRIBUTING.md)
 
 ## License
 

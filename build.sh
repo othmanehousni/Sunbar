@@ -25,8 +25,10 @@ EOF
 fi
 
 if [[ "${1:-}" == --test ]]; then
-    xcrun swiftc "${flags[@]}" -o .build/BoostChecks Sources/BoostRamp.swift Sources/OverlayGeometry.swift Sources/NativeBacklight.swift Tests/BoostChecks.swift
+    xcrun swiftc "${flags[@]}" -o .build/BoostChecks Sources/BoostRamp.swift Tests/BoostChecks.swift
     .build/BoostChecks
+    xcrun swiftc "${flags[@]}" -o .build/ControllerChecks Sources/BoostController.swift Sources/BoostRamp.swift Sources/CompositorBoost.swift Sources/HDRTrigger.swift Sources/PinnedSpace.swift Tests/ControllerChecks.swift
+    .build/ControllerChecks -BoostEnabled NO
     exit
 fi
 
@@ -44,7 +46,7 @@ cp LICENSE ACKNOWLEDGEMENTS.md "$app/Contents/Resources/"
 xcrun swiftc "${flags[@]}" -O -o "$app/Contents/MacOS/Sunbar" Sources/*.swift
 signing_identity="${SUNBAR_SIGNING_IDENTITY:--}"
 if [[ "$signing_identity" == - ]]; then
-    codesign --force --sign - "$app"
+    codesign --force --options runtime --sign - "$app"
 else
     codesign --force --options runtime --timestamp --sign "$signing_identity" "$app"
 fi
