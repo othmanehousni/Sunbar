@@ -85,10 +85,10 @@ final class XDROverlay {
             let submitted = renderer.present(factor: factor)
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-                rendering = false
+                self.rendering = false
                 if submitted {
-                    framesSubmitted += 1
-                    presentedFactor = factor
+                    self.framesSubmitted += 1
+                    self.presentedFactor = factor
                 }
             }
         }
