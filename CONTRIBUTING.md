@@ -7,6 +7,14 @@ Use Swift 6 and a macOS toolchain that can target macOS 14 on Apple silicon.
 ./build.sh
 ```
 
+## Pull requests
+
+Fork Sunbar, create a branch in your fork, and open a pull request against `main`. All files are owned by [@othmanehousni](https://github.com/othmanehousni), who reviews and merges contributions.
+
+Contributor pull requests require the owner's approval, passing macOS 15 and macOS 26 build checks, and resolved review conversations. New commits dismiss previous approvals. Direct pushes, force pushes, and deletion of `main` are blocked.
+
+The repository owner has a bypass through pull requests for maintenance, since GitHub does not allow authors to approve their own pull requests. Contributors are not granted this bypass.
+
 ## Display changes
 
 Test changes on a built-in Liquid Retina XDR display using the Apple XDR Display preset. Check brightness and color at several slider positions, then test Mission Control, the expanded desktop previews, slow horizontal desktop swipes, full-screen apps, app switching, and sleep/wake. Confirm that quitting restores the ordinary display appearance.
