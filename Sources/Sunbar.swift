@@ -62,7 +62,6 @@ private struct BoostMenu: View {
                 }
                 .labelsHidden()
                 .controlSize(.regular)
-                .tint(.orange)
                 .frame(height: 24)
                 .accessibilityValue(boost.strength.formatted(.percent.precision(.fractionLength(0))))
             }
