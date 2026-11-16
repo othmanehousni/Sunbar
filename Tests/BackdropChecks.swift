@@ -28,6 +28,7 @@ struct BackdropChecks {
             try await Task.sleep(for: .milliseconds(250))
         }
         precondition(window.value(forKey: "shouldAutoFlattenLayerTree") as? Bool == false)
+        precondition(window.value(forKey: "canHostLayersInWindowServer") as? Bool == true)
         precondition(window.isVisible && window.contentView?.layer === layer)
         precondition(layer.filters?.count == 1)
         boost.close()

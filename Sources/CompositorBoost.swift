@@ -42,6 +42,8 @@ final class CompositorBoost {
             window.responds(to: NSSelectorFromString($0))
         }), ["shouldAutoFlattenLayerTree", "_shouldAutoFlattenLayerTree"].contains(where: {
             window.responds(to: NSSelectorFromString($0))
+        }), ["canHostLayersInWindowServer", "setCanHostLayersInWindowServer:"].allSatisfy({
+            window.responds(to: NSSelectorFromString($0))
         }) else {
             window.close()
             return nil
@@ -72,7 +74,11 @@ final class CompositorBoost {
         view.wantsLayer = true
         view.layer = layer
         window.contentView = view
-        guard window.value(forKey: "shouldAutoFlattenLayerTree") as? Bool == false else {
+        // Recreate the backing surfaces once so WindowServer receives the live-layer policy.
+        window.setValue(false, forKey: "canHostLayersInWindowServer")
+        window.setValue(true, forKey: "canHostLayersInWindowServer")
+        guard window.value(forKey: "shouldAutoFlattenLayerTree") as? Bool == false,
+              window.value(forKey: "canHostLayersInWindowServer") as? Bool == true else {
             window.close()
             return nil
         }
