@@ -29,6 +29,8 @@ if [[ "${1:-}" == --test ]]; then
     .build/BoostChecks
     xcrun swiftc "${flags[@]}" -o .build/ControllerChecks Sources/BoostController.swift Sources/BoostRamp.swift Sources/CompositorBoost.swift Sources/HDRTrigger.swift Sources/PinnedSpace.swift Tests/ControllerChecks.swift
     .build/ControllerChecks -BoostEnabled NO
+    xcrun swiftc "${flags[@]}" -o .build/BackdropChecks Sources/BoostRamp.swift Sources/CompositorBoost.swift Sources/HDRTrigger.swift Sources/PinnedSpace.swift Tests/BackdropChecks.swift
+    .build/BackdropChecks
     exit
 fi
 
