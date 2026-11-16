@@ -19,6 +19,8 @@ The repository owner has a bypass through pull requests for maintenance, since G
 
 Test changes on a built-in Liquid Retina XDR display using the Apple XDR Display preset. Check brightness and color at several slider positions, then test Mission Control, the expanded desktop previews, slow horizontal desktop swipes, full-screen apps, app switching, and sleep/wake. Confirm that quitting restores the ordinary display appearance.
 
+Let the boost settle, then play hardware-accelerated video in a window and full screen. Seek, pause and resume, and switch Spaces during playback. Watch for frozen regions after leaving the gain unchanged.
+
 CI checks the build and pure logic on macOS runners. HDR behavior needs a physical compatible display. Include the hardware and macOS version you tested in a pull request.
 
 Preserve the calibrated sRGB multiplier, selector checks around private interfaces, and pause behavior for sleep, inactive sessions, and system authorization UI. The native compositor is the only brightness backend. Avoid display preset changes, hardware backlight writes, and screen capture.

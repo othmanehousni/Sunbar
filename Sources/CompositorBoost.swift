@@ -38,6 +38,18 @@ final class CompositorBoost {
 
         let window = NSPanel(contentRect: frame, styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
         window.isReleasedWhenClosed = false
+        guard ["setShouldAutoFlattenLayerTree:", "_setShouldAutoFlattenLayerTree:"].contains(where: {
+            window.responds(to: NSSelectorFromString($0))
+        }), ["shouldAutoFlattenLayerTree", "_shouldAutoFlattenLayerTree"].contains(where: {
+            window.responds(to: NSSelectorFromString($0))
+        }), ["canHostLayersInWindowServer", "setCanHostLayersInWindowServer:"].allSatisfy({
+            window.responds(to: NSSelectorFromString($0))
+        }) else {
+            window.close()
+            return nil
+        }
+        // Keep sampling live content after the brightness gain stops changing.
+        window.setValue(false, forKey: "shouldAutoFlattenLayerTree")
         window.backgroundColor = .clear
         window.isOpaque = false
         window.hasShadow = false
@@ -62,6 +74,14 @@ final class CompositorBoost {
         view.wantsLayer = true
         view.layer = layer
         window.contentView = view
+        // Recreate the backing surfaces once so WindowServer receives the live-layer policy.
+        window.setValue(false, forKey: "canHostLayersInWindowServer")
+        window.setValue(true, forKey: "canHostLayersInWindowServer")
+        guard window.value(forKey: "shouldAutoFlattenLayerTree") as? Bool == false,
+              window.value(forKey: "canHostLayersInWindowServer") as? Bool == true else {
+            window.close()
+            return nil
+        }
         self.window = window
 
         guard let space = PinnedSpace(windows: [window]) else {
